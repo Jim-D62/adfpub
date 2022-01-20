@@ -1,0 +1,11 @@
+{
+	"name": "adls2amlout",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://adls2aml.dfs.core.windows.net"
+		}
+	}
+}

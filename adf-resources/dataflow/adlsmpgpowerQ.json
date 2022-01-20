@@ -1,0 +1,20 @@
+{
+	"name": "adlsmpgpowerQ",
+	"properties": {
+		"description": "\n",
+		"type": "WranglingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"name": "adls2amlinputmpg",
+					"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> adls2amlinputmpg",
+					"dataset": {
+						"referenceName": "adls2amlinputmpg",
+						"type": "DatasetReference"
+					}
+				}
+			],
+			"script": "section Section1;\r\nshared adls2amlinputmpg = let\r\n  AdfDoc = AzureStorage.DataLakeContents(\"https://adls2aml.dfs.core.windows.net/input/MPG data for various automobiles.csv\"),\r\n  Csv = Csv.Document(AdfDoc, [Delimiter = \",\", Encoding = TextEncoding.Utf8, QuoteStyle = QuoteStyle.Csv]),\r\n  PromotedHeaders = Table.PromoteHeaders(Csv, [PromoteAllScalars = true])\r\nin\r\n  PromotedHeaders;\r\nshared UserQuery = let\r\n  Source = adls2amlinputmpg,\r\n  #\"Split column by delimiter\" = Table.SplitColumn(Source, \"Model\", Splitter.SplitTextByDelimiter(\" \"), {\"Model.1\", \"Model.2\"}),\r\n  #\"Renamed columns\" = Table.RenameColumns(#\"Split column by delimiter\", {{\"Model.1\", \"Brand\"}, {\"Model.2\", \"Model\"}}),\r\n  #\"Changed column type\" = Table.TransformColumnTypes(#\"Renamed columns\", {{\"Year\", Int64.Type}})\r\nin\r\n  #\"Changed column type\";\r\n"
+		}
+	}
+}
