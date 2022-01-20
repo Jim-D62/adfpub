@@ -1,0 +1,9 @@
+{
+	"name": "dxyadf",
+	"location": "southcentralus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "1ff0e120-a1bb-4cad-ba85-ccf7025c6f83",
+		"tenantId": "72f988bf-86f1-41af-91ab-2d7cd011db47"
+	}
+}

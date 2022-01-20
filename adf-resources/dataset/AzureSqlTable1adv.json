@@ -1,0 +1,17 @@
+{
+	"name": "AzureSqlTable1adv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabasedxysqldb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "SalesLT",
+			"table": "dummyName"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
