@@ -1,0 +1,152 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "dxyadf"
+		},
+		"AzureSqlDatabase1Target_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1Target'"
+		},
+		"AzureSqlDatabase1adv_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1adv'"
+		},
+		"AzureSqlDatabasedxysqldb_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabasedxysqldb'"
+		},
+		"AzureSynapseAnalytics1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSynapseAnalytics1'"
+		},
+		"linkedService1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'linkedService1'"
+		},
+		"adls2amllink_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adls2aml.dfs.core.windows.net"
+		},
+		"adls2amlout_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adls2aml.dfs.core.windows.net"
+		},
+		"irssis_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint": {
+			"type": "string",
+			"defaultValue": "dxysqlsrv.database.windows.net"
+		},
+		"irssis_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminUserName": {
+			"type": "string",
+			"defaultValue": "xyding"
+		},
+		"irssis_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
+			"type": "secureString"
+		},
+		"dataFactory_properties_globalParameters_enviroment_value": {
+			"type": "string",
+			"defaultValue": "UAT"
+		},
+		"dataFactory_location": {
+			"type": "string",
+			"defaultValue": "southcentralus"
+		},
+		"dataFactory_identity_type": {
+			"type": "string",
+			"defaultValue": "SystemAssigned"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "dxyadf_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureSqlDatabase1Target_connectionString": {
+						"value": "[parameters('AzureSqlDatabase1Target_connectionString')]"
+					},
+					"AzureSqlDatabase1adv_connectionString": {
+						"value": "[parameters('AzureSqlDatabase1adv_connectionString')]"
+					},
+					"AzureSqlDatabasedxysqldb_connectionString": {
+						"value": "[parameters('AzureSqlDatabasedxysqldb_connectionString')]"
+					},
+					"AzureSynapseAnalytics1_connectionString": {
+						"value": "[parameters('AzureSynapseAnalytics1_connectionString')]"
+					},
+					"linkedService1_connectionString": {
+						"value": "[parameters('linkedService1_connectionString')]"
+					},
+					"dataFactory_properties_globalParameters_enviroment_value": {
+						"value": "[parameters('dataFactory_properties_globalParameters_enviroment_value')]"
+					},
+					"dataFactory_location": {
+						"value": "[parameters('dataFactory_location')]"
+					},
+					"dataFactory_identity_type": {
+						"value": "[parameters('dataFactory_identity_type')]"
+					},
+					"adls2amllink_properties_typeProperties_url": {
+						"value": "[parameters('adls2amllink_properties_typeProperties_url')]"
+					},
+					"adls2amlout_properties_typeProperties_url": {
+						"value": "[parameters('adls2amlout_properties_typeProperties_url')]"
+					},
+					"irssis_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint": {
+						"value": "[parameters('irssis_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint')]"
+					},
+					"irssis_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminUserName": {
+						"value": "[parameters('irssis_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminUserName')]"
+					},
+					"irssis_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
+						"value": "[parameters('irssis_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "dxyadf_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'dxyadf_ArmTemplate_0')]"
+			]
+		}
+	]
+}

@@ -1,0 +1,6 @@
+{
+	"enviroment": {
+		"type": "string",
+		"value": "UAT"
+	}
+}
