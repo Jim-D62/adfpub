@@ -1,5 +1,13 @@
 {
 	"name": "dxyadf",
+	"properties": {
+		"globalParameters": {
+			"enviroment": {
+				"type": "string",
+				"value": "dev"
+			}
+		}
+	},
 	"location": "southcentralus",
 	"identity": {
 		"type": "SystemAssigned",
