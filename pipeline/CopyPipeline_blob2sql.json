@@ -1,0 +1,142 @@
+{
+	"name": "CopyPipeline_blob2sql",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_tgx",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "source//output_neo4j.csv"
+					},
+					{
+						"name": "Destination",
+						"value": "dbo.output_neo4j"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": false,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings",
+							"skipLineCount": 0
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"validateDataConsistency": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "m.internal_subject_id",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "internal_subject_id"
+								}
+							},
+							{
+								"source": {
+									"name": "n.event_name",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "event_name"
+								}
+							},
+							{
+								"source": {
+									"name": "n.event_date",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "event_date"
+								}
+							},
+							{
+								"source": {
+									"name": "q.item_name",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "item_name"
+								}
+							},
+							{
+								"source": {
+									"name": "q.item_value",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "item_value"
+								}
+							},
+							{
+								"source": {
+									"name": "o.form_name",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "form_name"
+								}
+							},
+							{
+								"source": {
+									"name": "p.dataset_name",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "dataset_name"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_tgx",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_tgx",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}

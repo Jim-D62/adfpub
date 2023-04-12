@@ -1,0 +1,52 @@
+{
+	"name": "SourceDataset_tgx",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStoragedxyblob",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "output_neo4j.csv",
+				"container": "source"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "m.internal_subject_id",
+				"type": "String"
+			},
+			{
+				"name": "n.event_name",
+				"type": "String"
+			},
+			{
+				"name": "n.event_date",
+				"type": "String"
+			},
+			{
+				"name": "q.item_name",
+				"type": "String"
+			},
+			{
+				"name": "q.item_value",
+				"type": "String"
+			},
+			{
+				"name": "o.form_name",
+				"type": "String"
+			},
+			{
+				"name": "p.dataset_name",
+				"type": "String"
+			}
+		]
+	}
+}
