@@ -1,0 +1,16 @@
+{
+	"name": "DestinationDataset_tgx",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabasedxy",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "output_neo4j"
+		}
+	}
+}
